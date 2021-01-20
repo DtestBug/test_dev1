@@ -1,0 +1,31 @@
+# 指定当前接口名称
+name: 注册接口
+
+base_url: "http://www.longboard-jg.ltd:8000"
+
+request:
+    url: /register/
+
+    method: POST
+
+    headers:
+        # User-Aget传参不能传入汉字，get_random_user_agent方法来源于项目文件夹下的debugtalk.py
+        User-Aget: "${get_random_user_agent()}"
+    data:
+        username: $username
+        password: $password
+        password_confirm: $password_confirm
+        email: $email
+
+
+# 来指定断言方式
+validate:
+    - eq: ["status_code", 201]
+
+
+# 执行用例方法：
+#    1.在Terminal控制台下执行hrun yaml配置文件（json配置文件）的相对路径或者绝对路径
+#    2.hrun D:\Py_Projects\learn_httprunner\api\api_testsuite.yml
+#    3.或者httprunner也可以
+#    4.执行后的“.”代表执行成功/F代表失败/1代表错误
+#    5.报告模块主题更换可以执行httprunner --report-template REPORT_TEMPLATE
